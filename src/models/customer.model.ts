@@ -1,15 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const customerSchema = new mongoose.Schema({
+  _id: Schema.Types.ObjectId,
   name: {
     type: String,
     required: true,
   },
   address: {
-    type: String,
-    required: true,
-  },
-  address1: {
     required: true,
     houseNumber: String,
     city: String,
