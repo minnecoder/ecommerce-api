@@ -25,7 +25,6 @@ export const Main = () => {
 
 	application.use(routeNotFound);
 
-	logging.info(process.env.MONGO_URI);
 	mongoose.connect(process.env.MONGO_URI || "");
 
 	httpServer = http.createServer(application);
