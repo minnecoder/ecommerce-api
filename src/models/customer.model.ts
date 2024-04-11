@@ -7,7 +7,6 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   address: {
-    required: true,
     houseNumber: String,
     city: String,
     state: String,
