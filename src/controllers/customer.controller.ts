@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { Customer } from "../models/customer.model";
 
-const getAllCustomers = async (
+export async function getAllCustomers(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) {
   try {
     const allCustomers = await Customer.find();
 
@@ -15,16 +15,16 @@ const getAllCustomers = async (
   } catch (error) {
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const getSingleCustomer = async (
+export async function getSingleCustomer(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) {
   try {
-    const CustomerId = Number(req.params.id);
-    const findSingleCustomer = await Customer.findOne({ CustomerId });
+    const CustomerId = req.params.id;
+    const findSingleCustomer = await Customer.findOne({ _id: CustomerId });
 
     if (!findSingleCustomer) {
       return res.status(400).json({ message: "Unable to find any data" });
@@ -36,37 +36,35 @@ const getSingleCustomer = async (
   } catch (error) {
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const createCustomer = async (
+export async function createCustomer(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
-  const customerData = req.body
+) {
+  const customerData = req.body;
   try {
-    const CustomerId = Number(req.params.id)
-    const checkExisting = await Customer.findOne({ CustomerId });
+    const CustomerId = req.params.id;
+    const checkExisting = await Customer.findOne({ _id: CustomerId });
 
     if (checkExisting) {
-      return res
-        .status(400)
-        .json({ message: "Account already exists" });
+      return res.status(400).json({ message: "Account already exists" });
     }
 
-    const newCustomer = new Customer(customerData)
-    await newCustomer.save()
+    const newCustomer = new Customer(customerData);
+    await newCustomer.save();
   } catch (error) {
-    console.error('Error creating customer:', error)
+    console.error("Error creating customer:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const updateCustomer = async (
+export async function updateCustomer(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) {
   const customerId = req.params.id;
   const updateFields = req.body;
 
@@ -87,13 +85,13 @@ const updateCustomer = async (
     console.error("Error updating customer:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const deleteCustomer = async (
+export async function deleteCustomer(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) {
   const customerId = req.params.id;
   try {
     const deletedCustomer = await Customer.findOneAndDelete({
@@ -108,12 +106,4 @@ const deleteCustomer = async (
     console.error("Error deleting customer:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
-
-module.exports = {
-  getAllCustomers,
-  getSingleCustomer,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer,
-};
+}

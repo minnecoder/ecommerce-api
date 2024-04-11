@@ -1,23 +1,27 @@
 import { NextFunction, Request, Response } from "express";
 import { Cart } from "../models/cart.model";
 
-const getAllCarts = async (req: Request, res: Response, next: NextFunction) => {
+export async function getAllCarts(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   try {
     const allCarts = await Cart.find();
     return res.status(200).json({ data: allCarts });
   } catch (error) {
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const getSingleCart = async (
+export async function getSingleCart(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) {
   try {
-    const CartId = Number(req.params.id);
-    const findSingleCart = await Cart.findOne({ CartId });
+    const CartId = req.params.id;
+    const findSingleCart = await Cart.findOne({ _id: CartId });
 
     if (!findSingleCart) {
       return res
@@ -30,13 +34,17 @@ const getSingleCart = async (
     console.error("Error while finding cart:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const createCart = async (req: Request, res: Response, next: NextFunction) => {
+export async function createCart(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const cartData = req.body;
   try {
-    const CartId = Number(req.params.id);
-    const checkExisting = await Cart.findOne({ CartId });
+    const CartId = req.params.id;
+    const checkExisting = await Cart.findOne({ _id: CartId });
     if (checkExisting) {
       return res.status(400).json({ message: "Cart already exists" });
     }
@@ -50,9 +58,13 @@ const createCart = async (req: Request, res: Response, next: NextFunction) => {
     console.error("Error  creating cart:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const updateCart = async (req: Request, res: Response, next: NextFunction) => {
+export async function updateCart(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const cartId = req.params.id;
   const cartFields = req.body;
 
@@ -74,9 +86,13 @@ const updateCart = async (req: Request, res: Response, next: NextFunction) => {
     console.error("Error updating cart:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
+}
 
-const deleteCart = async (req: Request, res: Response, next: NextFunction) => {
+export async function deleteCart(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const cartId = req.params.id;
   try {
     const deletedCart = await Cart.findOneAndDelete({ _id: cartId });
@@ -90,12 +106,4 @@ const deleteCart = async (req: Request, res: Response, next: NextFunction) => {
     console.error("Error deleting cart:", error);
     return res.status(500).json({ message: "Server Error" });
   }
-};
-
-module.exports = {
-  getAllCarts,
-  getSingleCart,
-  createCart,
-  updateCart,
-  deleteCart,
-};
+}
