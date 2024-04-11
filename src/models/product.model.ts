@@ -10,6 +10,4 @@ const productSchema = new mongoose.Schema({
   images: Array,
 });
 
-const Product = mongoose.model("Product", productSchema);
-
-module.exports = Product;
+export const Product = mongoose.model("Product", productSchema);
