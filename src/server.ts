@@ -1,7 +1,7 @@
 import http from "http";
 import express, { Response } from "express";
 import "./config/logging";
-
+import routes from "./routes/index.routes";
 import { loggingHandler } from "./middleware/loggingHandler";
 import { corsHandler } from "./middleware/corsHandler";
 import { routeNotFound } from "./middleware/routeNotFound";
@@ -23,6 +23,7 @@ export const Main = () => {
 		return res.status(200).json({ message: "Server is running" });
 	});
 
+	application.use("/api", routes);
 	application.use(routeNotFound);
 
 	mongoose.connect(process.env.MONGO_URI || "");
