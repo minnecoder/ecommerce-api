@@ -5,13 +5,11 @@ const sessionSchema = new mongoose.Schema({
   sessionToken: String,
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User",
   },
   valid: Boolean,
   userAgent: String,
-  ip: String
-})
+  ip: String,
+});
 
-const Session = mongoose.model('Session', sessionSchema)
-
-module.exports = Session
+export const Session = mongoose.model("Session", sessionSchema);

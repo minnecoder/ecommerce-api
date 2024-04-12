@@ -8,9 +8,7 @@ const supplierSchema = new mongoose.Schema({
   state: String,
   zipcode: String,
   phone: String,
-  email: String
-})
+  email: String,
+});
 
-const Supplier = mongoose.model('Supplier', supplierSchema)
-
-module.exports = Supplier
+export const Supplier = mongoose.model("Supplier", supplierSchema);

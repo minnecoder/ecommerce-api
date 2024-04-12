@@ -1,20 +1,20 @@
 import mongoose, { Schema } from "mongoose";
 
 const productSupplierSchema = new mongoose.Schema({
-
   _id: Schema.Types.ObjectId,
   productId: {
     type: Schema.Types.ObjectId,
-    ref: 'Product'
+    ref: "Product",
   },
 
   supplierId: {
     type: Schema.Types.ObjectId,
-    ref: 'Supplier'
+    ref: "Supplier",
   },
-  notes: String
-})
+  notes: String,
+});
 
-const ProductSupplier = mongoose.model('ProductSupplier', productSupplierSchema)
-
-module.exports = ProductSupplier
+export const ProductSupplier = mongoose.model(
+  "ProductSupplier",
+  productSupplierSchema,
+);

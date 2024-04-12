@@ -1,26 +1,24 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from "mongoose";
 
 const paymentSchema = new mongoose.Schema({
   _id: Schema.Types.ObjectId,
   orderId: {
     type: Schema.Types.ObjectId,
-    ref: 'Order'
+    ref: "Order",
   },
   customerId: {
     type: Schema.Types.ObjectId,
-    ref: 'Customer'
+    ref: "Customer",
   },
   total: Number,
   method: {
     type: String,
-    enum: ['stripe', 'credit card', 'other']
+    enum: ["stripe", "credit card", "other"],
   },
   status: {
     type: String,
-    enum: ['processed', 'paid', 'payment failed']
-  }
-})
+    enum: ["processed", "paid", "payment failed"],
+  },
+});
 
-const Payment = mongoose.model('Payment', paymentSchema)
-
-module.exports = Payment
+export const Payment = mongoose.model("Payment", paymentSchema);

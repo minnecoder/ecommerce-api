@@ -16,6 +16,4 @@ const shippingSchema = new mongoose.Schema({
   trackingNumber: String,
 });
 
-const Shipping = mongoose.model("Shipping", shippingSchema);
-
-module.exports = Shipping;
+export const Shipping = mongoose.model("Shipping", shippingSchema);
