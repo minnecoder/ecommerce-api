@@ -7,10 +7,20 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
   address: {
-    houseNumber: String,
-    city: String,
-    state: String,
-    zip: String,
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  zip: {
+    type: String,
+    required: true,
   },
   phone: {
     type: String,
