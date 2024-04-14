@@ -1,10 +1,26 @@
 import express from "express";
 import customerRoutes from "./customer.routes";
 import cartRoutes from "./cart.routes";
+import orderRoutes from "./order.routes";
+import orderProductRoutes from "./orderProduct.routes";
+import paymentRoutes from "./payment.routes";
 import productRoutes from "./product.routes";
+import productSupplierRoutes from "./productSupplier.routes";
+import reviewRoutes from "./review.routes";
+import sessionRoutes from "./session.routes";
+import shippingRoutes from "./shipping.routes";
+import supplierRoutes from "./supplier.routes";
 const router = express.Router();
 
 router.use("/customers", customerRoutes);
 router.use("/carts", cartRoutes);
+router.use("/orders", orderRoutes);
+router.use("/orderproducts", orderProductRoutes);
+router.use("/payment", paymentRoutes);
 router.use("/products", productRoutes);
+router.use("/productsuppliers", productSupplierRoutes);
+router.use("/reviews", reviewRoutes);
+router.use("/sessions", sessionRoutes);
+router.use("/shipping", shippingRoutes);
+router.use("/suppliers", supplierRoutes);
 export default router;
