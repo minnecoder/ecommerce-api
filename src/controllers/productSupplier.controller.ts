@@ -47,18 +47,11 @@ export async function createProductSupplier(
 ) {
   const productSupplierData = req.body;
   try {
-    const ProductSupplierId = req.params.id;
-    const checkExisting = await ProductSupplier.findOne({
-      _id: ProductSupplierId,
-    });
-    if (checkExisting) {
-      return res
-        .status(400)
-        .json({ message: "ProductSupplier already exists" });
-    }
+    const ProductId = req.body.productId;
+    const SupplierId = req.body.supplierId;
 
     // Check if the Product _id is valid
-    const isProductIdValid = await Product.findOne({ _id: req.body.productId });
+    const isProductIdValid = await Product.findOne({ _id: ProductId });
     if (!isProductIdValid) {
       return res
         .status(400)
@@ -67,7 +60,7 @@ export async function createProductSupplier(
 
     // Check if the Supplier _id is valid
     const isSupplierIdValid = await Supplier.findOne({
-      _id: req.body.supplierId,
+      _id: SupplierId,
     });
     if (!isSupplierIdValid) {
       return res

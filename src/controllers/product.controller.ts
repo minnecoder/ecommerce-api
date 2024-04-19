@@ -40,14 +40,7 @@ export async function createProduct(
   next: NextFunction,
 ) {
   const productData = req.body;
-  const productId = req.params.id;
   try {
-    const checkExisting = await Product.findOne({ _id: productId });
-
-    if (!checkExisting) {
-      return res.status(400).json({ message: "Product already exists" });
-    }
-
     const newProduct = new Product(productData);
     await newProduct.save();
   } catch (error) {

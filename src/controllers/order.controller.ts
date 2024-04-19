@@ -44,14 +44,7 @@ export async function createOrder(
 ) {
   const orderData = req.body;
   try {
-    const OrderId = req.params.id;
     const CustomerId = req.body.customerId;
-
-    // Check if there is not already an Order with the same _id
-    const checkExisting = await Order.findOne({ _id: OrderId });
-    if (checkExisting) {
-      return res.status(400).json({ message: "Order already exists" });
-    }
 
     // Verify that the customerId is a valid _id for a Customer
     const customerIsValid = await Customer.findOne({ _id: CustomerId });

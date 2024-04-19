@@ -45,13 +45,6 @@ export async function createCustomer(
 ) {
   const customerData = req.body;
   try {
-    const CustomerId = req.params.id;
-    const checkExisting = await Customer.findOne({ _id: CustomerId });
-
-    if (checkExisting) {
-      return res.status(400).json({ message: "Account already exists" });
-    }
-
     const newCustomer = new Customer(customerData);
     await newCustomer.save();
   } catch (error) {

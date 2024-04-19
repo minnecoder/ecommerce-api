@@ -45,16 +45,11 @@ export async function createReview(
 ) {
   const reviewData = req.body;
   try {
-    const ReviewId = req.params.id;
-
-    // Check if _id is already used
-    const checkExisting = await Review.findOne({ _id: ReviewId });
-    if (checkExisting) {
-      return res.status(400).json({ message: "Review already exists" });
-    }
+    const ProductId = req.body.productId;
+    const UserId = req.body.userId;
 
     // Check if the Product _id is valid
-    const isProductIdValid = await Product.findOne({ _id: req.body.productId });
+    const isProductIdValid = await Product.findOne({ _id: ProductId });
     if (!isProductIdValid) {
       return res
         .status(400)
@@ -62,7 +57,7 @@ export async function createReview(
     }
 
     // Check if the User _id is valid
-    const isUserIdValid = await User.findOne({ _id: req.body.userId });
+    const isUserIdValid = await User.findOne({ _id: UserId });
     if (!isUserIdValid) {
       return res
         .status(400)

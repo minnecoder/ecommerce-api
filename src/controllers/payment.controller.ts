@@ -45,15 +45,8 @@ export async function createPayment(
 ) {
   const paymentData = req.body;
   try {
-    const PaymentId = req.params.id;
     const OrderId = req.body.orderId;
     const CustomerId = req.body.customerId;
-
-    // Check if there is not another Payment with the same _id
-    const checkExisting = await Payment.findOne({ _id: PaymentId });
-    if (checkExisting) {
-      return res.status(400).json({ message: "Payment already exists" });
-    }
 
     // Check if the Order _id is valid
     const isOrderIdValid = await Order.findOne({ _id: OrderId });

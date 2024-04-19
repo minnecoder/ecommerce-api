@@ -47,15 +47,8 @@ export async function createOrderProduct(
 ) {
   const orderProductData = req.body;
   try {
-    const OrderProductId = req.params.id;
     const OrderId = req.body.orderId;
-    const ProductId = req.body.producctId;
-
-    // Check if there is already an order product with the same _id
-    const checkExisting = await OrderProduct.findOne({ _id: OrderProductId });
-    if (checkExisting) {
-      return res.status(400).json({ message: "OrderProduct already exists" });
-    }
+    const ProductId = req.body.productId;
 
     // Check if the orderId is valid
     const isOrderIdValid = await Order.findOne({ _id: OrderId });
@@ -76,12 +69,10 @@ export async function createOrderProduct(
     const newOrderProduct = new OrderProduct(orderProductData);
     await newOrderProduct.save();
 
-    return res
-      .status(201)
-      .json({
-        message: "OrderProduct created successfully",
-        data: newOrderProduct,
-      });
+    return res.status(201).json({
+      message: "OrderProduct created successfully",
+      data: newOrderProduct,
+    });
   } catch (error) {
     console.error("Error  creating order product:", error);
     return res.status(500).json({ message: "Server Error" });

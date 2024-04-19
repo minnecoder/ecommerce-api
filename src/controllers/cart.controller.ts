@@ -43,11 +43,6 @@ export async function createCart(
 ) {
   const cartData = req.body;
   try {
-    const CartId = req.params.id;
-    const checkExisting = await Cart.findOne({ _id: CartId });
-    if (checkExisting) {
-      return res.status(400).json({ message: "Cart already exists" });
-    }
     const newCart = new Cart(cartData);
     await newCart.save();
 

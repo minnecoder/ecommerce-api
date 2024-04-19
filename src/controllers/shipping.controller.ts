@@ -44,16 +44,10 @@ export async function createShipping(
 ) {
   const shippingData = req.body;
   try {
-    const ShippingId = req.params.id;
-
-    // Check if the id is already used
-    const checkExisting = await Shipping.findOne({ _id: ShippingId });
-    if (checkExisting) {
-      return res.status(400).json({ message: "Shipping already exists" });
-    }
+    const OrderId = req.body.orderId;
 
     // Check if the Order _id is valid
-    const isOrderIdValid = await Order.findOne({ _id: req.body.orderId });
+    const isOrderIdValid = await Order.findOne({ _id: OrderId });
     if (!isOrderIdValid) {
       return res
         .status(400)
